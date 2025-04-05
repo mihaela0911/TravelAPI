@@ -27,7 +27,7 @@ public class RoutesHttpHandler implements HttpHandler {
             return;
         }
 
-        DTORouteRequest request = null;
+        DTORouteRequest request;
         try {
             request = objectMapper.readValue(exchange.getRequestBody(), DTORouteRequest.class);
         } catch (JsonProcessingException e) {
@@ -40,7 +40,7 @@ public class RoutesHttpHandler implements HttpHandler {
             return;
         }
 
-        String response = null;
+        String response;
         if(request.maxFlights() == null) {
             response = objectMapper.writeValueAsString(RoutesFetcher.fetchRoutes(
                     FlightsRepository.getInstance().getFlightsMap(),

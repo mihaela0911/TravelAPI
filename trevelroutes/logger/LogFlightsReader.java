@@ -11,6 +11,7 @@ import java.util.List;
 
 public class LogFlightsReader {
 
+    private static final String CITY_REGEX = ".*[^A-Z].*";
     private static final int MAX_LINE_PARTS = 3;
 
     private LogFlightsReader() {
@@ -49,7 +50,7 @@ public class LogFlightsReader {
     private static void validateCity(String city) {
         if (city.trim().length() != MAX_LINE_PARTS) {
             throw new IllegalArgumentException("Origin and destination should be three letter words. ");
-        } else if (city.trim().matches(".*[^A-Z].*")) {
+        } else if (city.trim().matches(CITY_REGEX)) {
             throw new IllegalArgumentException("Origin and destination should contain only upper case letters. ");
         }
     }
