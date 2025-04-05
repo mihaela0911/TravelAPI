@@ -11,6 +11,8 @@ public record DTORouteRequest(String origin, String destination, Integer maxFlig
             return false;
         } else if (origin.trim().matches(CITY_REGEX) || destination.trim().matches(CITY_REGEX)) {
             return false;
-        } else return maxFlights == null || maxFlights > 0;
+        } else if (origin.equals(destination)) {
+            return false;
+        }else return maxFlights == null || maxFlights > 0;
     }
 }

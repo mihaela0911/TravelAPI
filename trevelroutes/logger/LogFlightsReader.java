@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LogFlightsReader {
@@ -25,11 +26,16 @@ public class LogFlightsReader {
             if (line.trim().isEmpty() || line.startsWith("Flights:")) continue;
 
             String[] parts = line.split(",");
+            parts = Arrays.stream(parts).map(String::trim).toArray(String[]::new);
+
+            if(parts[0].equals(parts[1])) {
+                continue;
+            }
             validateFlightLine(parts);
 
-            String origin = parts[0].trim();
-            String destination = parts[1].trim();
-            BigDecimal price = new BigDecimal(parts[2].trim());
+            String origin = parts[0];
+            String destination = parts[1];
+            BigDecimal price = new BigDecimal(parts[2]);
 
             validatePrice(price);
 
@@ -48,9 +54,9 @@ public class LogFlightsReader {
     }
 
     private static void validateCity(String city) {
-        if (city.trim().length() != MAX_LINE_PARTS) {
+        if (city.length() != MAX_LINE_PARTS) {
             throw new IllegalArgumentException("Origin and destination should be three letter words. ");
-        } else if (city.trim().matches(CITY_REGEX)) {
+        } else if (city.matches(CITY_REGEX)) {
             throw new IllegalArgumentException("Origin and destination should contain only upper case letters. ");
         }
     }
