@@ -31,12 +31,12 @@ public class RoutesHttpHandler implements HttpHandler {
         try {
             request = objectMapper.readValue(exchange.getRequestBody(), DTORouteRequest.class);
         } catch (JsonProcessingException e) {
-            exchange.sendResponseHeaders(BAD_REQUEST_ERR, -1); // Invalid JSON
+            exchange.sendResponseHeaders(BAD_REQUEST_ERR, -1);
             return;
         }
 
         if (request == null || !request.isValidRequest()) {
-            exchange.sendResponseHeaders(BAD_REQUEST_ERR, -1); // Bad Request
+            exchange.sendResponseHeaders(BAD_REQUEST_ERR, -1);
             return;
         }
 

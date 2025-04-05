@@ -19,7 +19,7 @@ public class LogFlightsReader {
 
     public static List<Flight> readFlightsFromFile(String filePath) throws IOException {
         List<Flight> flights = new ArrayList<>();
-        List<String> lines = Files.readAllLines(Path.of(filePath));
+        List<String> lines = Files.readAllLines(Path.of(filePath)).stream().filter(line -> !line.isBlank()).toList();
 
         for (String line : lines) {
             if (line.trim().isEmpty() || line.startsWith("Flights:")) continue;
