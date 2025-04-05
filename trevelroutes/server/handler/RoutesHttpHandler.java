@@ -35,7 +35,7 @@ public class RoutesHttpHandler implements HttpHandler {
             return;
         }
 
-        if (request == null || request.origin() == null || request.destination() == null) {
+        if (request == null || !request.isValidRequest()) {
             exchange.sendResponseHeaders(BAD_REQUEST_ERR, -1); // Bad Request
             return;
         }
