@@ -35,6 +35,7 @@ public class RoutesHttpHandler implements HttpHandler {
         }
 
         sendResponse(exchange, response);
+        logger.info("Response send correctly. ");
     }
 
     private DTORouteRequest processRequest(HttpExchange exchange) throws IOException {
