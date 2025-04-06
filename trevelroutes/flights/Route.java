@@ -2,11 +2,13 @@ package trevelroutes.flights;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({ "route", "price" })
 public class Route {
     private List<Flight> route;
     private BigDecimal price;
@@ -28,7 +30,7 @@ public class Route {
     }
 
     @JsonGetter("route")
-    public List<String> getRouteAsCityNames() {
+    public List<String> getRoute() {
         List<String> cities = new ArrayList<>();
         if (!route.isEmpty()) {
             cities.add(route.getFirst().origin());
