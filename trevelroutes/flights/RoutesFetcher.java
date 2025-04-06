@@ -14,6 +14,8 @@ public class RoutesFetcher {
 
     public static List<Route> fetchRoutes(List<Flight> flights,
                                           String from, String to, int maxFlights) {
+        from = from.trim();
+        to = to.trim();
         validateArguments(flights, from, to, maxFlights);
 
         List<Route> routes = new ArrayList<>();

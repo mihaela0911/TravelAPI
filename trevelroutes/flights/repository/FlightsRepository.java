@@ -14,7 +14,7 @@ public class FlightsRepository implements IRepository{
     private static final FlightsRepository instance = new FlightsRepository();
     private List<Flight> flights = new ArrayList<>();
 
-    private static final String CITY_REGEX = ".*[^A-Z].*";
+    private static final String CITY_REGEX = "^[A-Z]{3}$";
     private static final int MAX_LINE_PARTS = 3;
 
     private FlightsRepository() {
@@ -66,10 +66,8 @@ public class FlightsRepository implements IRepository{
     }
 
     private static void validateCity(String city) {
-        if (city.length() != MAX_LINE_PARTS) {
-            throw new IllegalArgumentException("Origin and destination should be three letter words. ");
-        } else if (city.matches(CITY_REGEX)) {
-            throw new IllegalArgumentException("Origin and destination should contain only upper case letters. ");
+        if (!city.matches(CITY_REGEX)) {
+            throw new IllegalArgumentException("Origin and destination should contain only three upper case letters. ");
         }
     }
 

@@ -5,6 +5,12 @@ Feature: Flight search without maxFlights
     When the user submits the request without specifying maxFlights
     Then the server should return all available flights between "SOF" and "MLE" ordered ascending by price
     And the response should contain flights with valid routes and prices
+	
+  Scenario: Flight search with whitespaces into origin
+    Given the user searches for flights from "SOF   " to "MLE"
+    When the user submits the request without specifying maxFlights
+    Then the server should return all available flights between "SOF   " and "MLE" ordered ascending by price
+    And the response should contain flights with valid routes and prices
 
 Feature: Flight search with maxFlights
 

@@ -26,6 +26,14 @@ public class RoutesHttpHandler implements HttpHandler {
         if (request == null) {
             return;
         }
+        logger.info("Request: ");
+
+        String requestString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(request);
+        logger.info(requestString);
+
+        logger.info("Origin: " + request.origin());
+        logger.info("Destination: " + request.destination());
+        logger.info("Max flights: " + request.maxFlights());
 
         String response = generateResponse(request);
         if (response == null) {
@@ -33,6 +41,9 @@ public class RoutesHttpHandler implements HttpHandler {
             logger.error("Invalid response object. ");
             return;
         }
+
+        String responseString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response);
+        logger.info(responseString);
 
         sendResponse(exchange, response);
         logger.info("Response send correctly. ");
