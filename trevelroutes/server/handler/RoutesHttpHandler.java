@@ -43,11 +43,11 @@ public class RoutesHttpHandler implements HttpHandler {
         String response;
         if(request.maxFlights() == null) {
             response = objectMapper.writeValueAsString(RoutesFetcher.fetchRoutes(
-                    FlightsRepository.getInstance().getFlightsMap(),
+                    FlightsRepository.getInstance().getFlights(),
                     request.origin(), request.destination(), Integer.MAX_VALUE));
         } else {
             response = objectMapper.writeValueAsString(RoutesFetcher.fetchRoutes(
-                    FlightsRepository.getInstance().getFlightsMap(),
+                    FlightsRepository.getInstance().getFlights(),
                     request.origin(), request.destination(), request.maxFlights()));
         }
 

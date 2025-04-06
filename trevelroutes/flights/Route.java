@@ -1,30 +1,42 @@
 package trevelroutes.flights;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Route {
-    private List<String> route;
+    private List<Flight> route;
     private BigDecimal price;
 
-    public Route(Route prev, String nextCity, BigDecimal additionalPrice) {
+    public Route(Route prev, Flight nextCity, BigDecimal additionalPrice) {
         this.route = new ArrayList<>(prev.route);
         this.route.add(nextCity);
         this.price = prev.price.add(additionalPrice);
     }
 
-    public Route(List<String> route, BigDecimal price) {
+    public Route(List<Flight> route, BigDecimal price) {
         this.route = route;
         this.price = price;
     }
 
-    public List<String> getRoute() {
+    @JsonIgnore
+    public List<Flight> getFlightRoute() {
         return route;
     }
 
-    public void setRoute(List<String> route) {
-        this.route = route;
+    @JsonGetter("route")
+    public List<String> getRouteAsCityNames() {
+        List<String> cities = new ArrayList<>();
+        if (!route.isEmpty()) {
+            cities.add(route.getFirst().origin());
+        }
+        for (Flight flight : route) {
+            cities.add(flight.destination());
+        }
+        return cities;
     }
 
     public BigDecimal getPrice() {

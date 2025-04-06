@@ -1,17 +1,13 @@
-import trevelroutes.flights.Flight;
 import trevelroutes.flights.repository.FlightsRepository;
-import trevelroutes.logger.LogFlightsReader;
 import trevelroutes.server.RoutesHttpsServer;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
         try {
-            List<Flight> flightList = LogFlightsReader.readFlightsFromFile("flights.txt");
-            FlightsRepository.getInstance().saveAsMap(flightList);
+            FlightsRepository.getInstance().readFlightsFromFile("flights.txt");
 
             RoutesHttpsServer server = new RoutesHttpsServer();
             server.start();
